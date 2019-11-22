@@ -32,6 +32,7 @@
           <li><a href="page.html">A Page</a></li>
           <li><a href="another_page.html">Another Page</a></li>
           <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="<?php echo base_url("index.php/User/userLogout"); ?>">Logout</a></li>
         </ul>
       </div>
     </div>

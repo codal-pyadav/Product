@@ -3,17 +3,49 @@
 
 class Product extends CI_Controller{
 
-	public function index(){
-		$this->load->model("ProductModel",'pm');
+	public function __construct() {
+        parent:: __construct();
 
-		$data['products']=$this->pm->list_product();
+        $this->load->helper('url');
+        $this->load->model("ProductModel",'pm');
+        $this->load->library("pagination");
+    }
+
+	public function index(){
+
+		$this->checkLogin();
+
+		$config = array();
+        $config["base_url"] = base_url() . "index.php/Product/index/";
+        $config["total_rows"] = $this->pm->get_count();
+        $config["per_page"] = 2;
+        $config["uri_segment"] = 2;
+
+         $this->pagination->initialize($config);
+         $page = ($this->uri->segment(2)) ? $this->uri->segment(3) : 0;
+         $data["links"] = $this->pagination->create_links();
+
+        $data['products'] = $this->pm->list_product($config["per_page"], $page);
+
+		
+
+		//$data['products']=$this->pm->list_product();
 		$data['page']='Products/listproduct';
 		$this->load->view('template',$data);
 	}
 
+
+	private function checkLogin(){
+			if(isset($_SESSION['userName'])){
+
+			}else{
+				redirect(base_url()."index.php/User/index");
+			}
+		}
+
 	public function add_product(){
 
-
+		$this->checkLogin();
 		$this->load->model('CategoryModel','cm');
 		$data['catdata']=$this->cm->list_category();
 		$data['page']='Products/addproduct';
@@ -22,6 +54,7 @@ class Product extends CI_Controller{
 	}
 
 	public function verification_product(){
+	$this->checkLogin();
 
 		$this->form_validation->set_rules('cat_id','Category Name','required');
 		$this->form_validation->set_rules('p_name','Product Name','required');
@@ -56,7 +89,7 @@ class Product extends CI_Controller{
 
 	public function remove_product(){
 
-
+		$this->checkLogin();
 		echo $p_id=$this->uri->segment(3);
 		$this->load->model("ProductModel",'pm');
 		if($this->pm->remove_product($p_id)){
@@ -67,7 +100,7 @@ class Product extends CI_Controller{
 	}
 
 	public function update_product(){
-
+		$this->checkLogin();
 		 echo $p_id=$this->uri->segment(3);
 		 echo  $cat_id=$this->uri->segment(4);
 		 $this->load->model("ProductModel",'pm');
@@ -86,7 +119,7 @@ class Product extends CI_Controller{
 
 
 	public function update_products(){
-
+		$this->checkLogin();
 		$p_id=$this->input->post('p_id');
 		$cat_id=$this->input->post('cat_id');
 		$p_name=$this->input->post('p_name');

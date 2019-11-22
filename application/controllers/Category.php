@@ -2,7 +2,17 @@
 
 	class Category extends CI_Controller{
 
+		private function checkLogin(){
+			if(isset($_SESSION['userName'])){
+
+			}else{
+				redirect(base_url()."index.php/User/index");
+			}
+		}
+
 		public function index(){
+			
+			$this->checkLogin();
 
 			$this->load->model('CategoryModel','cm');
 			$data['categorydata']=$this->cm->list_category();
@@ -13,6 +23,8 @@
 // ADD NEW Category
 
 		public function add_category(){
+			$this->checkLogin();
+
 			echo $sub_catid=$this->input->post('main_catid');
 			echo $cat_name=$this->input->post('cat_name');
 
@@ -35,6 +47,8 @@
 
 		public function remove_catgory(){
 
+				$this->checkLogin();
+				
 				$cat_id=$this->uri->segment(3);
 				$this->load->model('CategoryModel','cm');
 				if($this->cm->remove_category($cat_id))
@@ -50,7 +64,7 @@
 // edit category here
 
 		public function edit_category(){
-
+			$this->checkLogin();
 
 			 $cat_id=$this->uri->segment(3);
 			 $this->load->model('CategoryModel','cm');

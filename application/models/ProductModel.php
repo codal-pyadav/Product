@@ -3,17 +3,20 @@
 
 class ProductModel extends CI_Model{
 
-	public function list_product(){
+	public function list_product($limit,$start){
 
-		$this->db->select('product_table.p_id,product_table.p_name,product_table.p_desc,product_table.cat_id,category.cat_name');
+		 $this->db->select('product_table.p_id,product_table.p_name,product_table.p_desc,product_table.cat_id,category.cat_name');
 		$this->db->from('product_table');
 		$this->db->join('category','category.cat_id=product_table.cat_id');
+		$this->db->limit($limit, $start);
 		$this->db->order_by("p_id",'DESC');
-		$res=$this->db->get();
+		$query=$this->db->get();
 
-		//$this->db->order_by("p_id", "desc");
-		//$res=$this->db->get('product_table');
-		return $res->result();
+        return $query->result();
+	}
+
+	public function get_count() {
+		return $this->db->count_all("product_table");
 	}
 
 	public function add_product($data){

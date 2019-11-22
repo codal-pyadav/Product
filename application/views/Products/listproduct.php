@@ -46,3 +46,5 @@
 
 </table>
 
+<p class"linknext"><?php echo $links; ?></p>
+
