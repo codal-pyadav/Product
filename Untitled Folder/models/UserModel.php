@@ -33,12 +33,6 @@
 
 		}
 
-		public function userRegistered ()
-		{
-			$this->db->insert ('user_table', $data);
-			return true;
-		}
-
 
 	}
 

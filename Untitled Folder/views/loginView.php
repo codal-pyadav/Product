@@ -31,7 +31,7 @@
 
 			<div class="form-group">
 				<input type="submit" name="submit" class="btn btn-primary" value="Login"> 
-				<a href="<?php echo base_url("index.php/User/forgetPassword"); ?>"> &nbsp &nbsp Forget Password</a> &nbsp &nbsp/ <a href="<?php echo base_url('index.php/user/userRegistration'); ?>"> &nbsp &nbsp Registration</a>
+				<a href="<?php echo base_url("index.php/User/forgetPassword"); ?>"> &nbsp &nbsp Forget Password</a> &nbsp &nbsp/ <a href="#"> &nbsp &nbsp Registration</a>
 			</div>
 			
 		</form>
