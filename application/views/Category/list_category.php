@@ -3,24 +3,23 @@
         <h1>List Of All Categorys</h1>
 
         <div class="container" style="marker-start: 100px;">
-        	<?php 
+<?php
 
-        	if($addcat_msg=$this->session->flashdata('CatSuccess')){
+if ($addcat_msg = $this->session->flashdata('CatSuccess')) {
 
-        		echo $addcat_msg;
-        	}
-        	if($addnotcat_msg=$this->session->flashdata('Catnotsuccess')){
+    echo $addcat_msg;
+}
+if ($addnotcat_msg = $this->session->flashdata('Catnotsuccess')) {
 
-        		echo $addnotcat_msg;
-        	}
+    echo $addnotcat_msg;
+}
 
-			if($CatRmSuccess=$this->session->flashdata('CatRmSuccess')){
+if ($CatRmSuccess = $this->session->flashdata('CatRmSuccess')) {
 
-        		echo $CatRmSuccess;
-        	}
-        	
+    echo $CatRmSuccess;
+}
 
-         ?>
+?>
         </div>
 
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">New Category</button>
@@ -34,21 +33,20 @@
         			<td>Actions</td>
         		</tr>
         	</thead>
-        
-        <?php
+<?php
 
-        	foreach ($categorydata as $cat_rows) { ?>
+foreach ($categorydata as $cat_rows) {?>
         		<tr>
-        			<td><?php echo $cat_rows->cat_id;  ?></td>
-        			<td><?php echo $cat_rows->cat_name;  ?></td>
-        			<td><?php echo $cat_rows->cat_parent;  ?></td>
+        			<td><?php echo $cat_rows->cat_id; ?></td>
+        			<td><?php echo $cat_rows->cat_name; ?></td>
+        			<td><?php echo $cat_rows->cat_parent; ?></td>
         			<td><a style="text-decoration: none;" class="btn btn-primary" href="<?php echo base_url("index.php/Category/edit_category/$cat_rows->cat_id"); ?>">EDIT</a> &nbsp &nbsp
         			 	<a style="text-decoration: none;"  class="btn btn-danger confirmation" href="<?php echo base_url("index.php/Category/remove_catgory/$cat_rows->cat_id"); ?>">REMOVE</a> </td>
         		</tr>
-        		
-        	<?php }
 
-        ?>
+<?php }
+
+?>
 
 
         </table>
@@ -68,15 +66,15 @@
         	<div class="form-group">
         	<select class="form-control" name="main_catid">
         		<option value="">Select Parent Category</option>
-        		<?php
-        			foreach ($categorydata as $cat_rows) { ?>
-        			<option value="<?php echo $cat_rows->cat_id;  ?>">
-        				<?php echo $cat_rows->cat_name;  ?>
+<?php
+foreach ($categorydata as $cat_rows) {?>
+        			<option value="<?php echo $cat_rows->cat_id; ?>">
+        				<?php echo $cat_rows->cat_name; ?>
         			</option>
-        			
-        			<?php }
 
-        		?>
+<?php }
+
+?>
 
 
         	</select>
@@ -84,7 +82,7 @@
         	<div class="form-group">
         		<input type="name" name="cat_name" class="form-control" placeholder="ADD Catehory">
         	</div>
-        
+
       </div>
       <div class="modal-footer">
       <button type="submit" class="btn btn-primary" >ADD</button>

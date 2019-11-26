@@ -1,45 +1,38 @@
 <?php
 
-class CategoryModel extends CI_Model{
-	public function list_category(){
-		$res=$this->db->get('category');
-		return $res->result();
-	}
+class CategoryModel extends CI_Model
+{
+    public function list_category()
+    {
+        $res = $this->db->get('category');
 
-	public function add_main_category($cat_name,$sub_cat){
+        return $res->result();
+    } //end of list ctegory
 
-		$data=array(
-					'cat_name'=>$cat_name,
-					'cat_parent'=>$sub_cat);
+    public function add_main_category($cat_name, $sub_cat)
+    {
+        $data = array(
+            'cat_name' => $cat_name,
+            'cat_parent' => $sub_cat);
 
-		$this->db->insert('category',$data);
-		return true;
+        $this->db->insert('category', $data);
 
-	}
+        return true;
+    } // end add main category
 
-public function remove_category($cat_id){
+    public function remove_category($cat_id)
+    {
+        $this->db->where('cat_id', $cat_id);
+        $this->db->delete('category');
 
-		$this->db->where('cat_id',$cat_id);
-		$this->db->delete('category');
+        return true;
+    } //rend remove category
 
-		return true;
+    public function fetch_category($cat_id)
+    {
+        $this->db->where('cat_id', $cat_id);
+        $res = $this->db->get('category')->row();
 
+        return $res;
+    } //end fetch category
 }
-
-public function fetch_category($cat_id){
-
-
-	$this->db->where('cat_id',$cat_id);
-
-	$res=$this->db->get('category')->row();
-
-	
-		return $res;
-	
-}
-
-
-}
-
-
-?>
