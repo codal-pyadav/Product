@@ -57,4 +57,16 @@ class UserModel extends CI_Model
         $this->db->where('uname', $userName);
         $this->db->update('user_table', $data);
     }
+
+    public function updateProfileData($data, $uId)
+    {
+        $userName = $_SESSION['userName'];
+        $this->db->where('uid', $uId);
+        $this->db->where('uname', $userName);
+        $this->db->update('user_table', $data);
+
+        return true;
+
+    }
+
 } //end User Model  Class

@@ -158,11 +158,53 @@ class User extends CI_Controller
         //file delete from local place
         $file = './upload/' . $img;
         unlink($file);
-
         $userName = $_SESSION['userName'];
         $this->load->model('UserModel', 'um');
         $this->um->removePic($uId, $userName);
+        redirect(base_url("index.php/user/userProfile"));
     } //end of remove profile pic
+
+    public function userprofileUpdate()
+    {
+        print_r($_FILES);
+        print_r($_REQUEST);
+
+        $uId = $this->input->post('uid');
+        $userName = $this->input->post('userName');
+        $userFName = $this->input->post('userFName');
+        $userLName = $this->input->post('userLName');
+        $userPass = md5($this->input->post('userPass'));
+        $userEmail = $this->input->post('userEmail');
+        $userImg = $_FILES['userFile']['name'];
+
+        if (!empty($userImg)) {
+            $t = time();
+            $path = $t . $userImg;
+            move_uploaded_file($_FILES["userFile"]["tmp_name"], "./upload/" . $path);
+            $data = array(
+                'uname' => $userName,
+                'upassword' => $userPass,
+                'uemail' => $userEmail,
+                'ufname' => $userFName,
+                'ulname' => $userLName,
+                'uimage' => $path,
+            );
+
+        } else {
+            $data = array(
+                'uname' => $userName,
+                'upassword' => $userPass,
+                'uemail' => $userEmail,
+                'ufname' => $userFName,
+                'ulname' => $userLName,
+            );
+
+        }
+
+        $this->load->model('UserModel', 'um');
+        $this->um->updateProfileData($data, $uId);
+        redirect(base_url("index.php/user/userProfile"));
+    }
 
 }
 
